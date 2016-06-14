@@ -68,7 +68,7 @@ function getData(URL) {
       var descrption = window.$('#divDes').text();
       // var MPN = window.getElementById('divManufacturerPartNum');
       console.log(MPN);
-      var returnJSON = JSON.stringify({MPN: MPN, descrption: descrption})
+      var returnJSON = JSON.stringify({"mpn": MPN, "desc": descrption})
       return returnJSON;
 
 
