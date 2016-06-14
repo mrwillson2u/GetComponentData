@@ -28,10 +28,10 @@ http.createServer(function(request, response) {
       body.push(chunk);
     }).on('end', function() {
       body = Buffer.concat(body).toString();
-      console.log('body');
-      console.log(body);
+      console.log('body: ', body);
+      console.log(typeof body);
       // at this point, `body` has the entire request body stored in it as a string
-      
+
       var data = getData(body);
 
       response.write(data);
@@ -45,6 +45,8 @@ http.createServer(function(request, response) {
 }).listen(process.env.PORT || 3000);
 
 function getData(URL) {
+
+  console.log("getting data for: ", URL);
 
   jsdom.env({url: URL, scripts: ["http://code.jquery.com/jquery.js"], created: function(err, window) {
     console.log("created: " + err);
