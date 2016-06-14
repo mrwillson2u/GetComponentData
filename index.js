@@ -32,7 +32,7 @@ http.createServer(function(request, response) {
       console.log(typeof body);
       // at this point, `body` has the entire request body stored in it as a string
 
-      getData(body, functon(data) {
+      getData(body, function(data) {
         console.log("responding to request: ", data);
         console.log(typeof data);
         response.write(data);
