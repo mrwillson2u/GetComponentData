@@ -31,8 +31,8 @@ http.createServer(function(request, response) {
       console.log('body');
       console.log(body);
       // at this point, `body` has the entire request body stored in it as a string
-      console.log("URL: " + request.URL);
-      var data = getData(request.URL);
+      
+      var data = getData(body);
 
       response.write(data);
       response.end();
