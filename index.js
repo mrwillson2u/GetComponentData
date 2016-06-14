@@ -2,6 +2,10 @@ var jsdom = require('jsdom');
 var $ = require('jquery');
 var http = require('http');
 
+// getData('http://www.mouser.com/ProductDetail/RF-Digital/RFD22301/?qs=%2fha2pyFadugNWf53j%2f86uEf%2fd9qK8tBLHEbFqnjCkaFqhYjJ63mw1A%3d%3d', function(test) {
+//   console.log("test: ", test);
+// });
+
 
 http.createServer(function(request, response) {
   console.log("request method:");
@@ -32,11 +36,12 @@ http.createServer(function(request, response) {
       console.log(typeof body);
       // at this point, `body` has the entire request body stored in it as a string
 
-      var data = getData(body);
-      console.log("responding to request: ", data);
-      console.log(typeof data);
-      response.write(data);
-      response.end();
+      getData(body, functon(data) {
+        console.log("responding to request: ", data);
+        console.log(typeof data);
+        response.write(data);
+        response.end();
+      });
     });
   } else {
     response.statusCode = 404;
@@ -67,8 +72,9 @@ function getData(URL) {
       var MPN = window.$('#divManufacturerPartNum').text();
       var descrption = window.$('#divDes').text();
       // var MPN = window.getElementById('divManufacturerPartNum');
-      console.log(MPN);
+      console.log("MPN: ", MPN);
       var returnJSON = JSON.stringify({"mpn": MPN, "desc": descrption})
+      console.log("returnJSON: ", returnJSON);
       return returnJSON;
 
 
