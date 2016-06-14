@@ -2,10 +2,6 @@ var jsdom = require('jsdom');
 var $ = require('jquery');
 var http = require('http');
 
-// getData('http://www.mouser.com/ProductDetail/RF-Digital/RFD22301/?qs=%2fha2pyFadugNWf53j%2f86uEf%2fd9qK8tBLHEbFqnjCkaFqhYjJ63mw1A%3d%3d', function(test) {
-//   console.log("test: ", test);
-// });
-
 
 http.createServer(function(request, response) {
   console.log("request method:");
@@ -50,7 +46,7 @@ http.createServer(function(request, response) {
 
 }).listen(process.env.PORT || 3000);
 
-function getData(URL) {
+function getData(URL, callback) {
 
   console.log("getting data for: ", URL);
 
@@ -75,7 +71,7 @@ function getData(URL) {
       console.log("MPN: ", MPN);
       var returnJSON = JSON.stringify({"mpn": MPN, "desc": descrption})
       console.log("returnJSON: ", returnJSON);
-      return returnJSON;
+      callback(returnJSON);
 
 
     } else {
