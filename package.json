@@ -1,0 +1,22 @@
+{
+  "name": "get-component-data",
+  "version": "0.0.1",
+  "description": "Gets component data from distributor site to autopopulate BoM file",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrwillson2u/GetComponentData"
+  },
+  "keywords": [],
+  "author": "Colin Willson",
+  "license": "ISC",
+  "engines": {
+    "node": "5.1.1"
+  },
+  "homepage": "https://github.com/mrwillson2u/GetComponentData/blob/master/README.md",
+  "dependencies": {
+    "http": "0.0.0",
+    "jquery": "3.0.0",
+    "jsdom": "9.2.1"
+  }
+}
