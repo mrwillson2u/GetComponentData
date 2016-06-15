@@ -66,9 +66,9 @@ function getData(URL, callback) {
       // ref.child('websites/' + convertedName + "/pages").push({page: site.page.val().URL, keyWords: countedWords});
       //fireUpload("websites/" + convertedName + "/pages", "push", {page: site.page.URL, keyWords: countedWords});
       var MPN = window.$('#divManufacturerPartNum').text();
-      MPN.trim();
+      MPN.replace(/(\r\n|\n|\r)/gm,"");
       var descrption = window.$('#divDes').text();
-      descrption.trim();
+      descrption.replace(/(\r\n|\n|\r)/gm,"");
       // var MPN = window.getElementById('divManufacturerPartNum');
       console.log("MPN: ", MPN);
       var returnJSON = JSON.stringify({"mpn": MPN, "desc": descrption})
