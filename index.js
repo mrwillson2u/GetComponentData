@@ -2,6 +2,9 @@ var jsdom = require('jsdom');
 var $ = require('jquery');
 var http = require('http');
 
+// getData("http://www.mouser.com/ProductDetail/Vishay-BC-Components/NTCS0805E3103HLT/?qs=sGAEpiMZZMuBd0%252bwiCVS20cdM95KJtedrf7Nlsa1CKw%3d", function(data) {
+//   console.log("result--: ", data);
+// });
 
 http.createServer(function(request, response) {
   console.log("request method:");
@@ -70,12 +73,41 @@ function getData(URL, callback) {
 
       var descrption = window.$('#divDes').text();
       descrption = rmBreaks(descrption);
-      
+
       console.log("MPN: ", MPN);
-      var returnJSON = JSON.stringify({"mpn": MPN, "desc": descrption})
+
+      var priceBreaks = [];
+      var i = 0;
+      var j = 1
+
+      // Store all the price breaks in an array of objects
+      var qty = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lnkQuantity').text());
+      var price = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lblPrice').text());
+      console.log("Initial qty/price: ", qty + "/" + price);
+      do {
+        //Strip "$" and any remaining white space from price
+        price = price.replace("$", "");
+        // price.trim();
+
+        priceBreaks.push({"quantity": qty, "price": price})
+        // Incriment two digit number
+        if(j === 9) {
+          j = 0;
+          i++;
+        }else {
+          j++;
+        }
+
+        qty = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lnkQuantity').text());
+        price = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lblPrice').text());
+
+        console.log("New qty/price: ", qty + "/" + price);
+      }
+      while (qty)
+
+      var returnJSON = JSON.stringify({"mpn": MPN, "desc": descrption, "priceBreaks": priceBreaks});
       console.log("returnJSON: ", returnJSON);
       callback(returnJSON);
-
 
     } else {
         console.log(err + "- invalid url.");
