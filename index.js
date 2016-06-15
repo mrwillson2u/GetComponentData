@@ -66,10 +66,11 @@ function getData(URL, callback) {
       // ref.child('websites/' + convertedName + "/pages").push({page: site.page.val().URL, keyWords: countedWords});
       //fireUpload("websites/" + convertedName + "/pages", "push", {page: site.page.URL, keyWords: countedWords});
       var MPN = window.$('#divManufacturerPartNum').text();
-      MPN.replace(/(\r\n|\n|\r)/gm,"");
+      MPN = rmBreaks(MPN);
+
       var descrption = window.$('#divDes').text();
-      descrption.replace(/(\r\n|\n|\r)/gm,"");
-      // var MPN = window.getElementById('divManufacturerPartNum');
+      descrption = rmBreaks(descrption);
+      
       console.log("MPN: ", MPN);
       var returnJSON = JSON.stringify({"mpn": MPN, "desc": descrption})
       console.log("returnJSON: ", returnJSON);
@@ -80,6 +81,10 @@ function getData(URL, callback) {
         console.log(err + "- invalid url.");
     }
   }});
+}
+// Removes all types of line breaks from a string
+function rmBreaks(rawString) {
+  return rawString.replace(/(\r\n|\n|\r)/gm,"");
 }
 
 // function MouserData(URL) {
