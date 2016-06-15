@@ -2,9 +2,6 @@ var jsdom = require('jsdom');
 var $ = require('jquery');
 var http = require('http');
 
-// getData("http://www.mouser.com/ProductDetail/Vishay-BC-Components/NTCS0805E3103HLT/?qs=sGAEpiMZZMuBd0%252bwiCVS20cdM95KJtedrf7Nlsa1CKw%3d", function(data) {
-//   console.log("result--: ", data);
-// });
 
 http.createServer(function(request, response) {
   console.log("request method:");
@@ -89,7 +86,7 @@ function getData(URL, callback) {
         price = price.replace("$", "");
         // price.trim();
 
-        priceBreaks.push({"quantity": qty, "price": price})
+        priceBreaks.push({"quantity": parseInt(qty), "price": parseFloat(price)})
         // Incriment two digit number
         if(j === 9) {
           j = 0;
