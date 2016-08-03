@@ -13,7 +13,7 @@ var q = async.queue(function(task, callback) {
     console.log('hello ' + task.name);
 
 
-    getData(body, function(data) {
+    getData(task, function(data) {
       console.log("responding to request: ", data);
       // console.log(typeof data);
 
@@ -50,7 +50,7 @@ http.createServer(function(request, response) {
       console.log(typeof body);
       // at this point, `body` has the entire request body stored in it as a string
 
-      q.push(body, function (err, data) {
+      q.push({body: body}, function (err, data) {
         //console.log('finished processing: ', body);
         response.write(data);
         response.end();
