@@ -13,7 +13,7 @@ var q = async.queue(function(task, callback) {
     console.log('hello ' + task.name);
 
 
-    getData(task, function(data) {
+    getData(task.body, function(data) {
       console.log("responding to request: ", data);
       // console.log(typeof data);
 
