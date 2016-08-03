@@ -15,6 +15,7 @@
   },
   "homepage": "https://github.com/mrwillson2u/GetComponentData/blob/master/README.md",
   "dependencies": {
+    "async": "^2.0.1",
     "http": "0.0.0",
     "jquery": "3.0.0",
     "jsdom": "9.2.1"
