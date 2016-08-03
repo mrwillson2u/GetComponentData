@@ -35,7 +35,7 @@ http.createServer(function(request, response) {
   });
 
   if (request.method === 'GET') {//request.url === ''
-    getData(request.URL function(data) {
+    getData(request.URL, function(data) {
       console.log("URL: " + URL);
       request.pipe(data);
     });
@@ -149,32 +149,32 @@ function getData(URL, callback) {
         callback(returnJSON);
 
       } else if(website === "adafruit") {
-        //prod-right-side product_id prod-price
-        var prodName = window.$('#prod-right-side h1').text();
-        prodName = rmBreaks(prodName);
-        var prodId = window.$('.product_id').text();
-        prodId = rmBreaks(prodId);
-
-        var priceBreaks = [];
-        var i = 0;
-        var j = 1
-
-        // Store all the price breaks in an array of objects
-        var qty = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lnkQuantity').text());
-        var price = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lblPrice').text());
-        // console.log("Initial qty/price: ", qty + "/" + price);
-        do {
-          //Strip "$" and any remaining white space from price
-          price = price.replace("$", "");
-          // price.trim();
-
-          priceBreaks.push({"quantity": parseInt(qty), "price": parseFloat(price)});
-
-          qty = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lnkQuantity').text());
-          price = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lblPrice').text());
-
-          // console.log("New qty/price: ", qty + "/" + price);
-        }
+        // //prod-right-side product_id prod-price
+        // var prodName = window.$('#prod-right-side h1').text();
+        // prodName = rmBreaks(prodName);
+        // var prodId = window.$('.product_id').text();
+        // prodId = rmBreaks(prodId);
+        //
+        // var priceBreaks = [];
+        // var i = 0;
+        // var j = 1
+        //
+        // // Store all the price breaks in an array of objects
+        // var qty = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lnkQuantity').text());
+        // var price = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lblPrice').text());
+        // // console.log("Initial qty/price: ", qty + "/" + price);
+        // do {
+        //   //Strip "$" and any remaining white space from price
+        //   price = price.replace("$", "");
+        //   // price.trim();
+        //
+        //   priceBreaks.push({"quantity": parseInt(qty), "price": parseFloat(price)});
+        //
+        //   qty = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lnkQuantity').text());
+        //   price = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lblPrice').text());
+        //
+        //   // console.log("New qty/price: ", qty + "/" + price);
+        // }
       } else if(website === "amazon") {
 
       }
