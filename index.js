@@ -8,6 +8,13 @@ var async = require('async');
 // getData('http://www.mouser.com/Search/ProductDetail.aspx?R=C0805C105K4RACTUvirtualkey64600000virtualkey80-C0805C105K4R', function(data) {
 //   console.log("ALL Data: ", data);
 // })
+getData("https://www.adafruit.com/products/2659", function(data) {
+  console.log("responding to request: ", data);
+  // console.log(typeof data);
+
+  // callback(data);
+
+});
 
 var q = async.queue(function(task, callback) {
     console.log('hello ' + task.body);
@@ -84,8 +91,8 @@ function getData(URL, callback) {
 
       // Check which website URL is from
       var website = getHostName(URL);
-
-      if(website === "mouser") {
+      console.log("hostname: ", website);
+      if(website === "mouser.com") {
         var MPN = window.$('#divManufacturerPartNum').text();
         MPN = rmBreaks(MPN);
 
@@ -149,7 +156,7 @@ function getData(URL, callback) {
         console.log("returnJSON: ", returnJSON);
         callback(returnJSON);
 
-      } else if(website === "adafruit") {
+      } else if(website === "adafruit.com") {
         // //prod-right-side product_id prod-price
         // var prodName = window.$('#prod-right-side h1').text();
         // prodName = rmBreaks(prodName);
@@ -176,13 +183,13 @@ function getData(URL, callback) {
         //
         //   // console.log("New qty/price: ", qty + "/" + price);
         // }
-      } else if(website === "amazon") {
+      } else if(website === "amazon.com") {
 
       }
 
     } else {
         console.log(err + "- invalid url.");
-        callback(s);
+        callback();
     }
   }});
 }
