@@ -10,16 +10,17 @@ var async = require('async');
 // })
 
 var q = async.queue(function(task, callback) {
-    console.log('hello ' + task.name);
-
+    console.log('hello ' + task.body);
 
     getData(task.body, function(data) {
       console.log("responding to request: ", data);
       // console.log(typeof data);
 
       callback(data);
+
     });
-  }, 1);// create a queue object with concurrency 2
+
+  }, 2);// create a queue object with concurrency 2
 
 http.createServer(function(request, response) {
   console.log("request method:");
@@ -181,6 +182,7 @@ function getData(URL, callback) {
 
     } else {
         console.log(err + "- invalid url.");
+        callback(s);
     }
   }});
 }
