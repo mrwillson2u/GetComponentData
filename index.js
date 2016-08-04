@@ -22,9 +22,10 @@ var q = async.queue(function(task, callback) {
     getData(task.body, function(data) {
       console.log("responding to request: ", data);
       // console.log(typeof data);
+      task.response.write(data);
+      task.response.end();
 
-      callback(data);
-
+      callback();
     });
 
   }, 2);// create a queue object with concurrency 2
@@ -58,10 +59,9 @@ http.createServer(function(request, response) {
       console.log(typeof body);
       // at this point, `body` has the entire request body stored in it as a string
 
-      q.push({body: body}, function (err, data) {
-        //console.log('finished processing: ', body);
-        response.write(data);
-        response.end();
+      q.push({body: body, response: response}, function (err, data) {
+        console.log('Done processing: ', body);
+
       });
 
 
