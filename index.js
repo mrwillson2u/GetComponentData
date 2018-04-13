@@ -75,7 +75,93 @@ http.createServer(function(request, response) {
   console.log('listening on *:3000');
 });
 
+function getAllHTML(URL, callback) {
+  jsdom.env({url: URL, scripts: ["http://code.jquery.com/jquery.js"], created: function(err, window) {
+    console.log("created: " + err);
 
+  }, done: function (err, window) {
+    // free memory associated with the window
+    //console.log("window: " + window);
+
+    if (!err && window !== null) {
+
+      // Check which website URL is from
+      var website = getHostName(URL);
+      console.log("hostname: ", website);
+      if(website === "mouser.com") {
+        var MPN = window.$('#divManufacturerPartNum').text();
+        MPN = rmBreaks(MPN);
+
+        var descrption = window.$('#divDes').text();
+        descrption = rmBreaks(descrption);
+
+        var priceBreaks = [];
+        var i = 0;
+        var j = 1
+
+        var qty = window.$('#pdp-pricing-table > #div-table-row > label > a');
+        console.log(qty);
+        // Store all the price breaks in an array of objects
+        // var qty = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lnkQuantity').text());
+        var price = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lblPrice').text());
+        // console.log("Initial qty/price: ", qty + "/" + price);
+        do {
+          //Strip "$" and any remaining white space from price
+          price = price.replace("$", "");
+          // price.trim();
+
+          priceBreaks.push({"quantity": parseInt(qty), "price": parseFloat(price)});
+          // Incriment two digit number
+          if(j === 9) {
+            j = 0;
+            i++;
+          }else {
+            j++;
+          }
+          qty = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lnkQuantity').text());
+          price = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lblPrice').text());
+
+          // console.log("New qty/price: ", qty + "/" + price);
+        }
+        while (qty)
+
+        var specs = {};
+        var i = 0;
+        var j = 1
+        // Store all the price breaks in an array of objects
+        var specCat = rmBreaks(window.$('#ctl00_ContentMain_Specifications_dlspec_ctl' + i.toString() + j.toString() + '_lblDimension').text());
+        var specVal = rmBreaks(window.$('#ctl00_ContentMain_Specifications_dlspec_ctl' + i.toString() + j.toString() + '_lblName').text());
+        // console.log("Initial cat/val: ", specCat + "/" + specVal);
+        do {
+
+          specs[specCat] = specVal;
+          // Incriment two digit number
+          if (j === 9) {
+            j = 0;
+            i++;
+          } else {
+            j++;
+          }
+
+          specCat = rmBreaks(window.$('#ctl00_ContentMain_Specifications_dlspec_ctl' + i.toString() + j.toString() + '_lblDimension').text());
+          specVal = rmBreaks(window.$('#ctl00_ContentMain_Specifications_dlspec_ctl' + i.toString() + j.toString() + '_lblName').text());
+
+          // console.log("New cat/val: ", specCat + "/" + specVal);
+        }
+        while (specCat)
+
+        var returnJSON = JSON.stringify({"mpn": MPN, "desc": descrption, "priceBreaks": priceBreaks, "specs": specs});
+        console.log("returnJSON: ", returnJSON);
+        callback(returnJSON);
+
+      }
+
+    } else {
+        console.log(err + "- invalid url.");
+        callback();
+    }
+  }});
+}
 function getData(URL, callback) {
 
   console.log("getting data for: ", URL);
