@@ -104,7 +104,7 @@ function getAllHTML(URL, callback) {
         var i = 0;
         var j = 1
 
-        var qty = window //.$('.pdp-pricing-table').html();
+        var qty = window.innerHTML; //.$('.pdp-pricing-table').html();
         console.log("HTML Out:", qty);
         // Store all the price breaks in an array of objects
         // var qty = rmBreaks(window.$('#ctl00_ContentMain_ucP_rptrPriceBreaks_ctl' + i.toString() + j.toString() + '_lnkQuantity').text());
