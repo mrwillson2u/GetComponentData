@@ -109,7 +109,7 @@ function getPrices(URL, callback) {
 
       try {
         console.log("trying to get label");
-        qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('label').text;
+        qty = rows[i].getElementsByClassName('col-xs-4')[0].getElementsByTagName('label').innerHTML;
       }
       catch (e){
         try {
@@ -136,7 +136,7 @@ function getPrices(URL, callback) {
         }
 
       } else {
-        price = rows[i].getElementsByClassName('col-xs-4')[1].firstChild.innerHTML;
+        price = rows[i].getElementsByClassName('col-xs-4')[1].getElementsByTagName('span').innerHTML.trim();
       }
       pricBreakdown[i] = {qty: qty, price: price}
 
