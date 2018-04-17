@@ -103,8 +103,13 @@ function getPrices(URL, callback) {
 
 
     var qty = rows[i].querySelector('a').text.trim();
-    var price = rows[i].getElementsByClassName('col-xs-4')[1].querySelector('span').innerHTML.trim();
-
+    var checkIfQuote = rows[i].getElementsByClassName('col-xs-4')[1].querySelector('a').text.trim();
+    var price = '';
+    if(checkIfQuote && checkIfQuote === 'Quote') {
+      var price = checkIfQuote;
+    } else {
+      price = rows[i].getElementsByClassName('col-xs-4')[1].querySelector('span').innerHTML.trim();
+    }
     pricBreakdown[i] = {qty: qty, price: price}
 
     console.log("Price Breakdown: ", pricBreakdown[i]);
