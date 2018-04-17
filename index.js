@@ -104,7 +104,15 @@ function getPrices(URL, callback) {
     for(var i = 0; i < rows.length; i++) {
 
 
-      var qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('label').text.trim();
+      var qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('label');
+
+      try {
+        qty.getElementsByTagName('a').text().trim();
+      }
+      catch (e){
+
+        qty.text.trim();
+      }
 
       var price = '';
 
