@@ -108,11 +108,11 @@ function getPrices(URL, callback) {
 
 
       try {
-        qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('label').text();
+        qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('label').text;
       }
       catch (e){
         try {
-          qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('a').text();
+          qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('a').text;
         }
         catch (e) {
           console.error(e);
@@ -127,7 +127,7 @@ function getPrices(URL, callback) {
 
       if(checkIfQuote) {
         try{
-          price = pricecheckIfQuote.text.trim();
+          price = pricecheckIfQuote.text;
         } catch(e) {
           console.error(e);
           price = 'Unknown';
