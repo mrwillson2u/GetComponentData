@@ -99,28 +99,39 @@ function getPrices(URL, callback) {
   // element = element[0].text();
   var pricBreakdown = [];
   console.log('HERE 3');
-  for(var i = 0; i < rows.length; i++) {
+  var returnJSON = '';
+  try {
+    for(var i = 0; i < rows.length; i++) {
 
 
-    var qty = rows[i].querySelector('a').text.trim();
-    var checkIfQuote = rows[i].getElementsByClassName('col-xs-4')[1].querySelector('a').innerHTML;
-    var price = '';
+      var qty = rows[i].querySelector('a').text.trim();
+      var checkIfQuote = rows[i].getElementsByClassName('col-xs-4')[1].querySelector('a').innerHTML;
+      var price = '';
 
-    if(checkIfQuote && checkIfQuote === 'Quote') {
-      var price = checkIfQuote;
-    } else {
-      price = rows[i].getElementsByClassName('col-xs-4')[1].querySelector('span').innerHTML.trim();
+      if(checkIfQuote && checkIfQuote === 'Quote') {
+        var price = checkIfQuote;
+      } else {
+        price = rows[i].getElementsByClassName('col-xs-4')[1].querySelector('span').innerHTML.trim();
+      }
+      pricBreakdown[i] = {qty: qty, price: price}
+
+      console.log("Price Breakdown: ", pricBreakdown[i]);
+
+
     }
-    pricBreakdown[i] = {qty: qty, price: price}
 
-    console.log("Price Breakdown: ", pricBreakdown[i]);
-
-
+    console.log('HERE 4');
+      var returnJSON = JSON.stringify(pricBreakdown);
+      console.log("returnJSON: ", returnJSON);
   }
-console.log('HERE 4');
-  var returnJSON = JSON.stringify(pricBreakdown);
-  console.log("returnJSON: ", returnJSON);
-  callback(returnJSON);
+
+  catch (e) {
+    console.error(e);
+  }
+  finally {
+
+    callback(returnJSON);
+  }
 });
 //
 //   const dom = new JSDOM(`<!DOCTYPE html><p>Hello world</p>`);
