@@ -109,7 +109,7 @@ function getPrices(URL, callback) {
 
   }
 
-  var returnJSON = JSON.stringify(pricBreakdown);
+  var returnJSON = JSON.stringify(pricBreakdown[i]);
   console.log("returnJSON: ", returnJSON);
   callback(returnJSON);
 });
