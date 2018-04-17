@@ -110,8 +110,12 @@ function getPrices(URL, callback) {
         qty = qty.getElementsByTagName('a').text.trim();
       }
       catch (e){
-
-        qty = qty.text.trim();
+        try {
+          qty = qty.text.trim();
+        }
+        catch (e) {
+          console.error(e);
+        }
       }
 
       var price = '';
