@@ -103,8 +103,9 @@ function getPrices(URL, callback) {
 
 
     var qty = rows[i].querySelector('a').text.trim();
-    var checkIfQuote = rows[i].getElementsByClassName('col-xs-4')[1].querySelector('a').text.trim();
+    var checkIfQuote = rows[i].getElementsByClassName('col-xs-4')[1].querySelector('a').innerHTML;
     var price = '';
+
     if(checkIfQuote && checkIfQuote === 'Quote') {
       var price = checkIfQuote;
     } else {
