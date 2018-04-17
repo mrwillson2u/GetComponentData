@@ -111,7 +111,7 @@ function getPrices(URL, callback) {
       }
       catch (e){
         try {
-          qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('a').text;
+          qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('a').text();
         }
         catch (e) {
           console.error(e);
