@@ -110,7 +110,7 @@ console.log('HERE 2');
 
   }
 console.log('HERE 4');
-  var returnJSON = JSON.stringify(pricBreakdown[i]);
+  var returnJSON = JSON.stringify(pricBreakdown);
   console.log("returnJSON: ", returnJSON);
   callback(returnJSON);
 });
