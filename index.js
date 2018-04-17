@@ -108,10 +108,12 @@ function getPrices(URL, callback) {
 
 
       try {
+        console.log("trying to get label");
         qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('label').text;
       }
       catch (e){
         try {
+          console.log("trying to get a");
           qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('a').text;
         }
         catch (e) {
