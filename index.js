@@ -28,6 +28,8 @@ var q = async.queue(function(task, callback) {
       // console.log(typeof data);
       task.response.write(data);
       task.response.end();
+
+      callback();
     } );
     // getData(task.body, function(data) {
     //   console.log("responding to request: ", data);
@@ -86,10 +88,10 @@ http.createServer(function(request, response) {
 });
 
 function getPrices(URL, callback) {
-console.log('HERE 1');
+
   JSDOM.fromURL(URL, {includeNodeLocations: true}).then(dom => {
   // console.log("SERIALIZE: ", dom.serialize());
-console.log('HERE 2');
+
   const doc = dom.window.document;
   var rows = doc.getElementsByClassName('pdp-pricing-table')[0].getElementsByClassName('div-table-row');
   // element = element[0].getElementsByClassName('div-table-row');
