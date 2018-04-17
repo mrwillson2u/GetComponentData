@@ -105,11 +105,21 @@ function getPrices(URL, callback) {
 
 
       var qty = rows[i].querySelector('a').text.trim();
-      var checkIfQuote = rows[i].getElementsByClassName('col-xs-4')[1].querySelector('a').innerHTML;
+
       var price = '';
 
-      if(checkIfQuote && checkIfQuote === 'Quote') {
-        var price = checkIfQuote;
+      var checkIfQuote = rows[i].getElementsByClassName('col-xs-4')[1].querySelector('a');
+
+
+
+      if(checkIfQuote) {
+        try{
+          price = pricecheckIfQuote.text.trim();
+        } catch(e) {
+          console.error(e);
+          price = 'Unknown';
+        }
+
       } else {
         price = rows[i].getElementsByClassName('col-xs-4')[1].querySelector('span').innerHTML.trim();
       }
