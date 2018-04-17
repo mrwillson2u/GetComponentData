@@ -87,7 +87,7 @@ http.createServer(function(request, response) {
 
 function getPrices(URL, callback) {
 
-  JSDOM.fromURL(urlSet, {includeNodeLocations: true}).then(dom => {
+  JSDOM.fromURL(URL, {includeNodeLocations: true}).then(dom => {
   // console.log("SERIALIZE: ", dom.serialize());
 
   const doc = dom.window.document;
