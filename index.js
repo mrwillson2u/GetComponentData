@@ -109,7 +109,7 @@ function getPrices(URL, callback) {
 
       try {
         console.log("trying to get label");
-        qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('label').text;
+        qty = rows[i].getElementsByClassName('col-xs-4')[0].firstChild.firsrChild.innerHTML;
       }
       catch (e){
         try {
