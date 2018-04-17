@@ -114,7 +114,7 @@ function getPrices(URL, callback) {
       catch (e){
         try {
           console.log("trying to get a");
-          qty = rows[i].getElementsByClassName('col-xs-4')[0].firstChild.innerHTML.trim();
+          qty = rows[i].getElementsByClassName('col-xs-4')[0].firstChild.firstChild.text.trim();
         }
         catch (e) {
           console.error(e);
