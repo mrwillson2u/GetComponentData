@@ -107,11 +107,11 @@ function getPrices(URL, callback) {
       var qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('label');
 
       try {
-        qty.getElementsByTagName('a').text().trim();
+        qty = qty.getElementsByTagName('a').text.trim();
       }
       catch (e){
 
-        qty.text.trim();
+        qty = qty.text.trim();
       }
 
       var price = '';
