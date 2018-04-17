@@ -23,7 +23,7 @@ var async = require('async');
 
 var q = async.queue(function(task, callback) {
     console.log('hello ' + task.body);
-    getPrices(task.body, function() {
+    getPrices(task.body, function(data) {
       console.log("responding to request: ", data);
       // console.log(typeof data);
       task.response.write(data);
