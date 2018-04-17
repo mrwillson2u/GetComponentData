@@ -107,11 +107,11 @@ function getPrices(URL, callback) {
       var qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('label');
 
       try {
-        qty = qty.getElementsByTagName('a').text.trim();
+        qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('label').innerHTML;
       }
       catch (e){
         try {
-          qty = qty.text.trim();
+          qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('a').text;
         }
         catch (e) {
           console.error(e);
