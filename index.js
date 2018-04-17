@@ -136,7 +136,7 @@ function getPrices(URL, callback) {
         }
 
       } else {
-        price = rows[i].getElementsByClassName('col-xs-4')[1].getElementsByTagName('span').innerHTML;
+        price = rows[i].getElementsByClassName('col-xs-4')[1].getElementsByTagName('span').text;
       }
       pricBreakdown[i] = {qty: qty, price: price}
 
