@@ -114,7 +114,7 @@ function getPrices(URL, callback) {
       catch (e){
         try {
           console.log("trying to get a");
-          qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('a').text.trim();
+          qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('a').innerHTML.trim();
         }
         catch (e) {
           console.error(e);
@@ -129,7 +129,7 @@ function getPrices(URL, callback) {
 
       if(checkIfQuote) {
         try{
-          price = pricecheckIfQuote.text;
+          price = pricecheckIfQuote.innerHTML;
         } catch(e) {
           console.error(e);
           price = 'Unknown';
