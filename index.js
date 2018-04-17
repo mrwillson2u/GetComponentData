@@ -105,7 +105,13 @@ function getPrices(URL, callback) {
     pricBreakdown[i] = {qty: qty, price: price}
 
     console.log("Price Breakdown: ", pricBreakdown[i]);
+
+
   }
+
+  var returnJSON = JSON.stringify(pricBreakdown);
+  console.log("returnJSON: ", returnJSON);
+  callback(returnJSON);
 });
 //
 //   const dom = new JSDOM(`<!DOCTYPE html><p>Hello world</p>`);
