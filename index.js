@@ -1,5 +1,5 @@
 const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
+const JSDOM = jsdom;
 var $ = require('jquery');
 var http = require('http');
 var async = require('async');
