@@ -11,7 +11,7 @@
   "author": "Colin Willson",
   "license": "ISC",
   "engines": {
-    "node": "5.1.1"
+    "node": "9.11.1"
   },
   "homepage": "https://github.com/mrwillson2u/GetComponentData/blob/master/README.md",
   "dependencies": {
