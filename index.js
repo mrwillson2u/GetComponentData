@@ -159,7 +159,8 @@ function getPrices(URL, callback) {
     }
   });
 }
-catch {
+catch (e){
+  console.error(e);
   callback("{}");
 }
 //
