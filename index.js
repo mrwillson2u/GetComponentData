@@ -88,10 +88,11 @@ http.createServer(function(request, response) {
 });
 
 function getPrices(URL, callback) {
+  console.log("About to try to get url...");
   try {
     JSDOM.fromURL(URL, {includeNodeLocations: true}).then(dom => {
     // console.log("SERIALIZE: ", dom.serialize());
-
+    console.log("Got url...");
     const doc = dom.window.document;
     var rows = doc.getElementsByClassName('pdp-pricing-table')[0].getElementsByClassName('div-table-row');
     // element = element[0].getElementsByClassName('div-table-row');
@@ -161,6 +162,7 @@ function getPrices(URL, callback) {
 }
 catch (e){
   console.error(e);
+  console.log("Could' get url...");
   callback("{}");
 }
 //
