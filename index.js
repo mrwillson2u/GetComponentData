@@ -88,74 +88,78 @@ http.createServer(function(request, response) {
 });
 
 function getPrices(URL, callback) {
-
-  JSDOM.fromURL(URL, {includeNodeLocations: true}).then(dom => {
-  // console.log("SERIALIZE: ", dom.serialize());
-
-  const doc = dom.window.document;
-  var rows = doc.getElementsByClassName('pdp-pricing-table')[0].getElementsByClassName('div-table-row');
-  // element = element[0].getElementsByClassName('div-table-row');
-  // element = element[0].getElementsByTagName('a');
-  // element = element[0].text();
-  var pricBreakdown = [];
-  console.log('HERE 3');
-  var returnJSON = '';
   try {
-    for(var i = 0; i < rows.length; i++) {
+    JSDOM.fromURL(URL, {includeNodeLocations: true}).then(dom => {
+    // console.log("SERIALIZE: ", dom.serialize());
+
+    const doc = dom.window.document;
+    var rows = doc.getElementsByClassName('pdp-pricing-table')[0].getElementsByClassName('div-table-row');
+    // element = element[0].getElementsByClassName('div-table-row');
+    // element = element[0].getElementsByTagName('a');
+    // element = element[0].text();
+    var pricBreakdown = [];
+    console.log('HERE 3');
+    var returnJSON = '';
+    try {
+      for(var i = 0; i < rows.length; i++) {
 
 
-      var qty = '';
+        var qty = '';
 
 
-      try {
-        console.log("trying to get label");
-        qty = rows[i].getElementsByClassName('col-xs-4')[0].firstChild.firsrChild.innerHTML.trim();
-      }
-      catch (e){
         try {
-          console.log("trying to get a");
-          qty = rows[i].getElementsByClassName('col-xs-4')[0].firstChild.firstChild.text.trim();
+          console.log("trying to get label");
+          qty = rows[i].getElementsByClassName('col-xs-4')[0].firstChild.firsrChild.innerHTML.trim();
         }
-        catch (e) {
-          console.error(e);
+        catch (e){
+          try {
+            console.log("trying to get a");
+            qty = rows[i].getElementsByClassName('col-xs-4')[0].firstChild.firstChild.innerHTML.trim();
+          }
+          catch (e) {
+            console.error(e);
+          }
         }
+
+        var price = '';
+
+        var checkIfQuote = rows[i].getElementsByClassName('col-xs-4')[1].querySelector('a');
+
+
+
+        if(checkIfQuote) {
+          try{
+            price = pricecheckIfQuote.innerHTML;
+          } catch(e) {
+            console.error(e);
+            price = 'Unknown';
+          }
+
+        } else {
+          price = rows[i].getElementsByClassName('col-xs-4')[1].querySelector('span').innerHTML.trim();
+        }
+        pricBreakdown[i] = {qty: qty, price: price}
+
+        console.log("Price Breakdown: ", pricBreakdown[i]);
+
+
       }
 
-      var price = '';
-
-      var checkIfQuote = rows[i].getElementsByClassName('col-xs-4')[1].querySelector('a');
-
-
-
-      if(checkIfQuote) {
-        try{
-          price = pricecheckIfQuote.innerHTML;
-        } catch(e) {
-          console.error(e);
-          price = 'Unknown';
-        }
-
-      } else {
-        price = rows[i].getElementsByClassName('col-xs-4')[1].querySelector('span').innerHTML.trim();
-      }
-      pricBreakdown[i] = {qty: qty, price: price}
-
-      console.log("Price Breakdown: ", pricBreakdown[i]);
-
-
+      console.log('HERE 4');
+        var returnJSON = JSON.stringify(pricBreakdown);
+        console.log("returnJSON: ", returnJSON);
     }
 
-    console.log('HERE 4');
-      var returnJSON = JSON.stringify(pricBreakdown);
-      console.log("returnJSON: ", returnJSON);
-  }
+    catch (e) {
+      console.error(e);
+    }
+    finally {
 
-  catch (e) {
-    console.error(e);
+      callback(returnJSON);
+    }
   }
-  finally {
-
-    callback(returnJSON);
+  catch {
+    callback('{}'});
   }
 });
 //
