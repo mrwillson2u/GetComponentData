@@ -14,12 +14,12 @@ var async = require('async');
 //   // callback(data);
 //
 // });
-// var urlSet =  'https://www.mouser.com/ProductDetail/Murata-Electronics/GRM1885C1H103JA01D?qs=sGAEpiMZZMs0AnBnWHyRQP81ohtk65EYLjxkpOMiaYc%3d'
-// gerPrices(urlSet, function(data) {
-//   console.log("responding to getAllHTML: ", data);
+// var urlSet =  'https://www.mouser.com/ProductDetail/STMicroelectronics/VL53L0CXV0DH-1?qs=dTJS0cRn7ojtsK3C9%252bTaSw%3d%3d';
+// getPrices(urlSet, function(data) {
+//   console.log("responding to gerPrices: ", data);
 //   // console.log(typeof data);
 //
-// } );
+// });
 
 var q = async.queue(function(task, callback) {
     console.log('hello ' + task.body);
@@ -106,21 +106,28 @@ function getPrices(URL, callback) {
 
 
         var qty = '';
-
-
         try {
-          console.log("trying to get label");
-          qty = rows[i].getElementsByClassName('col-xs-4')[0].firstChild.firsrChild.innerHTML.trim();
+          qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('a').text.trim();
+        } catch (e) {
+          console.log(e);
         }
-        catch (e){
-          try {
-            console.log("trying to get a");
-            qty = rows[i].getElementsByClassName('col-xs-4')[0].firstChild.innerHTML.trim();
-          }
-          catch (e) {
-            console.error(e);
-          }
-        }
+
+        // qty = rows[i].getElementsByClassName('col-xs-4')[0].querySelector('label').label.innerHTML;
+        // try {
+        //   console.log("trying to get label");
+        //   qty = rows[i].getElementsByClassName('col-xs-4')[0].firstChild.querySelector('PricingQtyId*').innerHTML;
+        // }
+        // catch (e){
+        //   try {
+        //     console.log("trying to get a");
+        //     qty = rows[i].getElementsByClassName('col-xs-4')[0].firstChild.innerHTML.trim();
+        //   }
+        //   catch (e) {
+        //     console.error(e);
+        //   }
+        // }
+        console.log('qty');
+        console.log(qty);
 
         var price = '';
 
